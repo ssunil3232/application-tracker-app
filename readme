@@ -1,0 +1,18 @@
+
+# So this is how we begin a new project in Vanilla JS
+# 1 - create a index.html, app.js and a style.css file in the directory
+# 2 - In the index.html file, hold SHIFT+1 to press the '!' to generate a body code in index.html
+## - update the title of the webpage
+## - link the stylesheet style.css
+## - in the body, link the script tag with the app.js file
+## - apply font awesome icons
+## - to apply google fonts, copy the link ref from google and paste it in the index.html, below the meta
+
+
+## connecting backedn
+# 1- ensure you have node and npm: node -v, npm -v
+# 2- run npm init to get a package.json file
+# 3- run npm install express
+# 4- run npm install --save-dev nodemon (to be able to not need to re-run the server every time) ==> then we can run with just npx nodemon server.js
+
+# installing joi for validation of input fields

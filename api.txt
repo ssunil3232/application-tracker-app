@@ -1,0 +1,215 @@
+This is a guide on using using HTTP Requests and building REST APIs. 
+
+## Overview
+- So when the client (frontend) ===> needs to communicate with the server (backend), we use the HTTP Protocol.
+- HTTP is a protocol for fetching resources. 
+---> It is the foundation of any data exchange on the Web and it is a client-server protocol, which means requests are initiated by the recipient (Web browser).
+---> The messages sent by the client are called requests and the messages sent by the server as an answer are called responses.
+- Fetch() is a JavaScript function used to make HTTP requests.
+---> It is integrated with features such as service workers and Cross-Origin Resource Sharing (CORS).
+---> It is promise-based function which is fulfilled with a Response object representing the server's response. 
+---> You can then check the request status and extract the body of the response in various formats, including text and JSON.
+---> By default, fetch() makes a GET request. ==> if we want others, we need to specify the method.
+- To streamline the fetch http interactions, we build REST APIs that allow us to perform CRUD (Create, Read, Update and Delete) operations with the server.
+---> REST == Representational State Transfor, is a convention for building HTTP Services
+**** Basically ===> fetch is used to interact with REST APIs
+
+## Types of HTTP requests
+- GET => to fetch data from server to the client
+- POST => to create a new entry in the server
+- PUT => to update an entry
+- DELETE => to delete an entry
+- ***PATCH => to update only part of an entry
+
+## HTTP Status Codes
+- 200 // success
+- 201 // created success
+- 204 // delete success
+- 404 // not found
+- 400 // bad request
+- 500 // internal server error
+- 302 // resource moved
+- 401 // unauthorized
+
+## HTTP Request Authentication
+- HTTP request authentication is essential for securing access to resources in web applications.
+1) Basic Authentication
+--> encodes the username and password in base64 and includes it in the HTTP header.
+--> simple but Not secure on its own, as base64 encoding is easily reversible
+2) Bearer Token Authentication
+--> token is generated on the server and sent to client on login
+--> client then includes this token in Authorization header
+--> token has expiration times but required server-side token management
+3) API Key Authentication
+--> client provides unique key in request header as a url parameter
+--> e.g. ../?api_key=APIKEY ==> then in request we check req.key
+--> But Not secure if sent over HTTP, as it can be intercepted
+4) OAuth
+--> an industry-standard protocol for authorization
+--> commonly used to grant third-party applications limited access to resources without exposing user credentials
+--> complex to implement
+
+=====> Something like this:
+{
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json",
+    'Authorization', 'Basic ' + btoa(`${username}:${password}`)
+  },
+  ...
+}
+
+
+================================================================
+## Fetch request structure
+### GET 
+- 
+async function getData() {
+  const url = "https://example.org/";
+  const collection = "products"; <------- the collection we want to get
+  try {
+    const response = await fetch(
+        url + collection,
+        {
+            method: 'GET'
+        }
+    ); 
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const result = await response.json(); <------- extracting the body of response
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+### POST
+-
+async function sendData(data) {
+  const url = "https://example.org/";
+  const collection = "products";
+  try {
+    const response = await fetch(
+        url + collection,
+        {
+            method: 'POST', <----------method specified
+            headers: {  <--------------Request headers give the server information about the request. (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+                "Content-Type": "application/json" <-----the Content-Type header tells the server the format of the request's body.
+            },
+            body: JSON.stringify(data) <--------The request body is the payload of the request
+            // You can supply other types to the body: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch 
+        }
+    ); 
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    // Perform the GET request to fetch updated collection
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+### PUT
+- 
+async function updateData(updatedData) {
+  const url = "https://example.org/";
+  const collection = "products";
+  try {
+    const response = await fetch(
+        url + collection + updatedData.id, <-----pass id of item to update
+        {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedData) <-----updated data
+        }
+    ); 
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    // Perform the GET request to fetch updated collection
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+### DELETE
+- 
+async function deleteData(data) {
+  const url = "https://example.org/";
+  const collection = "products";
+  try {
+    const response = await fetch(
+        url + collection + data.id, <-----pass id of item to delete
+        {
+            method: 'DELETE'
+        }
+    ); 
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    // Perform the GET request to fetch updated collection
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+### PATCH
+- 
+async function updateDataField(id, key, value) {
+  const url = "https://example.org/";
+  const collection = "products";
+  try {
+    const response = await fetch(
+        url + collection + id, <-----pass id of item to patch
+        {
+            method: 'PATCH',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({key: value}), <--- only the fields
+        },
+    ); 
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    // Perform the GET request to fetch updated collection
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
+
+### Another format other than try, catch
+fetch('https://api.example.com/products')
+  .then((response) => {
+    if (!response.ok) throw new Error(`Error: ${response.statusText}`);
+    return response.json();
+  })
+  .then((data) => console.log(data))
+  .catch((error) => console.error('Fetch error:', error));
+
+
+
+==================================
+
+## REST APIs -- REST == Representational State Transfor, is a convention for building HTTP Services
+### Core principles
+- Stateless: Each request to the server must contain all the information needed to process it, as the server doesn’t store any session information about the client.
+- Resource-based: Data or objects (like user, post, product) are treated as resources and identified by URLs.
+- Standard HTTP Methods
+
+### Advantages
+- 1) simplicity => simple and easy to understand because they use standard HTTP methods
+- 2) scalability => REST is stateless, meaning each request is independent, allowing the server to handle large numbers of requests without maintaining client state.
+                 => the Stateless architecture helps REST APIs to scale horizontally, as servers can handle requests independently and distribute load across multiple servers.
+- 3) flexibility => not tied to a specific client or platform, hence, they can be consumed by any application capable of making HTTP requests.
+
+### Building REST APIs
+- build using Node.js with Express
+- Express is a web application framework for Node.js that helps developers build web and mobile applications. 
+---> It's written in JavaScript and is designed to make it easier to create APIs and web applications 
+- Create an Entry File for API code (server.js)
+- check the definitions in server.js
+- If you want persistent data (not just in memory), connect your API to a database, such as MongoDB or PostgreSQL

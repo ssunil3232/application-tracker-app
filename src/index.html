@@ -1,0 +1,164 @@
+<!-- defines that this document is an HTML5 document -->
+ <!-- declaration is not case sensitive. -->
+<!DOCTYPE html>
+<!-- is the root element of an HTML page -->
+ <!-- lang attribute inside the <html> tag, to declare the language of the Web page. 
+    This is meant to assist search engines and browsers -->
+<html lang="en">
+<!-- contains meta information about the HTML page -->
+<head>
+    <!-- The metadata is used by browsers (how to display content or reload page), 
+     by search engines (keywords), and other web services -->
+    <meta charset="UTF-8">
+    <!-- Setting the viewport to make your website look good on all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Define keywords for search engines -->
+    <meta name="keywords" content="HTML, CSS, JavaScript, Application Tracking">
+    <!-- Define a description of your web page -->
+    <meta name="description" content="Application Tracker with Vanilla JS">
+    <!-- Define the author of a page -->
+    <meta name="author" content="Sonia Sunil">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./timeline.css">
+    <!-- shown in the browser's title bar or in the page's tab -->
+    <title>Application Tracker</title>
+</head>
+<body>
+    <nav>
+        <div class="nav-items">
+            <!-- HTML links : The link's destination is specified in the href attribute.  -->
+            <!-- The target attribute specifies where to open the linked document. 
+                _self - Default. Opens the document in the same window/tab as it was clicked
+                _blank - Opens the document in a new window or tab
+                _parent - Opens the document in the parent frame
+                _top - Opens the document in the full body of the window
+                Using a button as a link:
+                    <button onclick="document.location='default.asp'">HTML Tutorial</button>
+            -->
+            <a href="/" class="nav-button" nav-link>Home</a>
+            <a href="/about" class="nav-button" nav-link>Profile</a>
+        </div>
+        <!-- HTML tags are not case sensitive: <P> means the same as <p>. -->
+        <div class="track-record-items">
+            <div class="chip">
+                <div class="chip-image-container">
+                    <!-- If the URL begins with a slash, it will be relative to the domain. Example: src="/images/img_girl.jpg". -->
+                     <!-- It is almost always best to use relative URLs. They will not break if you change domain. -->
+                    <img src="/avatar.jpg" alt="Person" class="chip-image">
+                </div>
+                John Doe
+                <span class="ribbon">FE</span>
+            </div>
+        </div>
+    </nav>
+    <section id="home">
+        <header>
+            <h1>Application Tracker</h1>
+        </header>
+        <div class="tracker-actions">
+            <div id="search-filter-bar">
+                <!-- input readonly attribute specifies that an input field is read-only. 
+                 e.g.: <input type="text" id="fname" name="fname" value="John" readonly> 
+
+                 The input disabled attribute specifies that an input field should be disabled
+                 e.g.: <input type="text" id="fname" name="fname" value="John" disabled>
+
+                 The pattern attribute works with the following input types: text, date, search, url, tel, email, and password.
+                 e.g.: <input type="text" id="country_code" name="country_code" pattern="[A-Za-z]{3}">
+                 -->
+                <input type="search" placeholder="Search by company or job title..." id="search-bar" name="search-bar"/>
+                <div class="filter-apps-done">
+                    <!-- title attribute will be displayed as a tooltip when you mouse over the element -->
+                    <label for="apps-done" class="no-wrap" title="Filter for the applications you have submitted">
+                        Filter Applications:&nbsp;</label>
+                    <select name="apps-done" id="apps-done">
+                        <option value="">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">Last Month</option>
+                    </select>
+                </div>
+            </div>
+            <button class="add-btn" type="button">
+                <span>Add new</span>
+                <i class="fas fa-solid fa-plus"></i>
+            </button>
+        </div>
+        <!-- 
+            - td stands for table data: the content of the table cell
+            - tr stands for table row: hence, why the th is within the tr
+            - th stands for table header
+            - <thead> Groups the header content in a table
+            - <tbody> Groups the body content in a table
+            - <tfoot> Groups the footer content in a table
+            - To make a cell span over multiple columns, 
+              use the colspan attribute: e.g. <th colspan="2">
+            - To make a cell span over multiple rows, 
+              use the rowspan attribute: e.g. <th rowspan="2"
+        -->
+        <div class="table-view">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Confidence Score</th>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Submission Date</th>
+                        <th>Link</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="application-table-body">
+                    <tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <dialog id="addDialog">
+            <h4 class="dialog-title"></h4>
+            <div id="basicform-container"></div>
+            <div class="dialog-btns">
+                <button class="submit-btn" type="submit">
+                    <i class="fas fa-solid fa-check"></i>
+                </button>
+                <button class="close-btn" id="closeDialogBtn">
+                    <i class="fas fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+        </dialog>
+    </section>
+    <section id="about" style="display: none;">
+        <header>
+            <h1>Profile</h1>
+        </header>
+        <div class="profile-details">
+            <h3>Attributes:</h3>
+            <!-- An unordered list starts with the <ul> tag. Each list item starts -->
+            <ul>
+                <li>Passionate</li>
+                <li>Hard-working</li>
+                <li>Adaptable</li>
+            </ul>
+            <h3>Target careers:</h3>
+            <!-- An ordered list starts with the <ol> tag.
+                The list items will be marked with numbers by default -->
+            <ol>
+                <li>UX Engineer</li>
+                <li>Product Engineer</li>
+                <li>Frontend Engineer</li>
+            </ol>
+        </div>
+    </section>
+    <section id="404" style="display: none;">
+        <h1>404</h1>
+        <!-- br tag defines a line break -->
+        <p>Page <br> not found.</p>
+    </section>
+    <script type="module" src="./app.js"></script>
+</body>
+</html>

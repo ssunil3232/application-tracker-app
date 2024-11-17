@@ -1,0 +1,76 @@
+/* timeline.css */
+
+/* Timeline container */
+.timeline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+/* Timeline items container */
+.timeline-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    height: 6px;
+    background: white;
+    position: relative;
+    border-radius: 30px;
+}
+
+/* Timeline item */
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    text-align: center;
+}
+
+/* Timeline content */
+.timeline-content {
+    margin-top: 20px;
+    border-radius: 5px;
+    width: 100px;
+    font-size: x-small;
+    position: relative;
+    top: 70%;
+}
+
+/* Timeline line */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    /* left: 0; */
+    left: 0; /* Starts the line within padding */
+    right: 0; /* Ends the line within padding */
+    width: 70%;
+    height: 4px;
+    background-color: #ddd;
+    z-index: -1;
+}
+
+/* Timeline circle */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border: 4px solid #007bff;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Active state */
+.timeline-item.active::before {
+    border-color: #0db10d;
+}

@@ -1,0 +1,55 @@
+<!-- basicform.html -->
+<form>
+    <div class="form-grid">
+        <div class="input-field">
+            <label for="company-name">Company:</label>
+            <input type="text" class="company-name-input-field" id="company-name" name="company-name" required>
+        </div>
+        <div class="input-field">
+            <label for="industry-name">Industry:</label>
+            <input type="text" placeholder="Tech, Healthcare, Education, ..." class="industry-input-field" id="industry-name" name="industry-name">
+        </div>
+        <div class="input-field">
+            <label for="job-name">Job Title:</label>
+            <input type="text" class="job-title-input-field" id="job-title-name" name="job-title-name">
+        </div>
+        <div class="input-field">
+            <label for="job-type">Job Type:</label>
+            <!-- Use the multiple attribute to allow the
+              user to select more than one value: e.g. <select id="cars" name="cars" size="4" multiple>
+              -->
+            <select class="job-type-select-field" id="job-type" name="job-type">
+                <option value="ux">UX Design</option>
+                <option value="fe">Frontend Dev</option>
+                <option value="uxEng">UX Engineer</option>
+                <option value="product">Product Engineer</option>
+                <option value="productD">Product Designer</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label for="submission-date">Submission Date:</label>
+            <input type="date"  class="submission-date-input-field" id="submission-date" name="submission-date">
+        </div>
+        <div class="input-field">
+            <label for="url">Application URL:</label>
+            <input type="url" placeholder="https://example.com" pattern="https://.*" class="url-input" id="url-input" name="url-input">
+        </div>
+        <!-- The <fieldset> element is used to group related data in a form. -->
+            <!-- The <legend> element defines a caption for the <fieldset> element. -->
+        <fieldset>
+            <legend>Confidence Score:</legend>
+            <div>
+                <input type="radio" id="high" name="score" value="high" checked />
+                <label for="high">High</label>
+            </div>
+            <div>
+                <input type="radio" id="medium" name="score" value="medium" />
+                <label for="medium">Medium</label>
+            </div>
+            <div>
+                <input type="radio" id="low" name="score" value="low" />
+                <label for="low">Low</label>
+            </div>
+        </fieldset>
+    </div>
+</form>
